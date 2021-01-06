@@ -1,0 +1,39 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {    
+    height: 100%;
+    width: 100%;
+    font-family: Verdana, sans-serif;
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(190, 190, 190);
+    text-align: center;
+}
+
+.product-div {
+    margin: 10px;
+    padding: 10px;
+    border-style: solid;
+    border-width: thin;
+    text-align: center;
+}
+
+.product-div:hover {
+    border-color: grey;
+    border-width: thick;
+}
+
+#shop-overview {
+    display: flex;
+}
