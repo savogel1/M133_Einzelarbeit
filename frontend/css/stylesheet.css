@@ -10,6 +10,7 @@ body {
     display: flex;
     align-items: center;
     align-content: center;
+    justify-content: center;
 }
 
 header {
@@ -29,7 +30,15 @@ footer {
     text-align: center;
 }
 
-.product-div {
+.product-img {
+    height: 100px;
+}
+
+#product-detail-img {
+    height: 300px;
+}
+
+.card {
     margin: 10px;
     padding: 10px;
     border-style: solid;
@@ -37,11 +46,22 @@ footer {
     text-align: center;
 }
 
-.product-div:hover {
-    border-color: grey;
-    border-width: thick;
+.nav-icon {
+    height: 20px;
+    width: auto;
+}
+
+.cart-align {
+    justify-content: flex-end;
+}
+
+.add-to-cart-btn {
+    height: 50px;
 }
 
 #shop-overview {
     display: flex;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
 }

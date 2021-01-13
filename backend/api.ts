@@ -15,11 +15,7 @@ router.get('/overview', async (ctx) => {
 });
 
 router.get(`/product-detail/:id`, async (ctx) => {
-    console.log("Tedt");
     ctx.response.body = getProduct(ctx.params.id!);
-    //const body = JSON.parse(await ctx.request.body().value);
-    console.log("Fuck");
-    
     ctx.response.status = 200;
 });
 
