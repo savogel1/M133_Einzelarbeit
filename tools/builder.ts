@@ -1,11 +1,5 @@
-const [diagnostics_overviewJS, overviewJS] = await Deno.bundle(
-    "./frontend/shop-overview.ts",
+const [diagnostics_appJs, appJs] = await Deno.bundle(
+  "./frontend/app.ts",
 );
 
-await Deno.writeTextFile("./frontend/build.shop-overview.js", overviewJS);
-
-const [diagnostics_productDetailJS, productDetailJS] = await Deno.bundle(
-  "./frontend/product-detail.ts",
-);
-
-await Deno.writeTextFile("./frontend/build.product-detail.js", productDetailJS);
+await Deno.writeTextFile("./frontend/build.app.js", appJs);

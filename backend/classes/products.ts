@@ -1,4 +1,4 @@
-export const productsArray = [
+export const products = [
         {
             id: 1,
             name: "Apfel",

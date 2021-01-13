@@ -4,8 +4,8 @@ export async function loadProductDetail() {
         mode: `no-cors`
     });
     let product = await response.json();
-    document.getElementById("product-detail-img").src = `./assets/${product.imgUrl}`;
+
+    document.getElementById("product-detail-img").src = `../assets/${product.imgUrl}`;
     document.getElementById("product-title").innerText = product.name;
     document.getElementById("product-price").innerText = product.price;
 }
-loadProductDetail();

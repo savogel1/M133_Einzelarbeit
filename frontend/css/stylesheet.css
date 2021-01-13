@@ -17,8 +17,10 @@ header {
     position: fixed;
     left: 0;
     top: 0;
+    padding-top: 30px;
     width: 100%;
     text-align: center;
+    background-color: #f8f9fa;
 }
 
 footer {
@@ -31,7 +33,7 @@ footer {
 }
 
 .product-img {
-    height: 100px;
+    height: 150px;
 }
 
 #product-detail-img {
