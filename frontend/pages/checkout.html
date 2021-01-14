@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/stylesheet.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Warenkorb</title>
+    <title>Zahlen</title>
 </head>
 <body>
     <header>
-        <h1>Warenkorb</h1>
+        <h1>Zahlen</h1>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">    
             <div class="container-fluid">
                 <ul class="d-flex navbar-nav">
@@ -38,26 +38,21 @@
     </header>
 
     <main>
-        <div id="cart-list" class="list-group"></div>
-        <a href="./checkout.html">
-            <button id="checkout-btn" class="btn btn-outline-dark btn-lg btn-add-to-cart">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
-                    <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
-                    <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
-                </svg>
-                Checkout
-            </button>
-        </a>
+        <form id="checkout-form" action="/">
+            <label for="firstname">First name:</label><br>
+            <input type="text" id="firstname" placeholder="Vorname"><br>
+            <label for="lastname">Last name:</label><br>
+            <input type="text" id="lastname" placeholder="Nachname"><br>
+            <label for="email">Last name:</label><br>
+            <input type="email" id="email" placeholder="E-Mail"><br><br>
+            <input type="submit" value="Einkauf abschliessen" class="btn btn-outline-dark btn-lg btn-add-to-cart">
+        </form> 
     </main>
 
     <footer class="card-footer">
         <p>Web-Shop von Sacha Vogel</p>
     </footer>
-
-    <script type="module">
-        import { loadCart } from "../build.app.js";
-
-        loadCart();
-    </script>
+   
+    <script type="module" src="../scripts/build.checkout.js"></script>
 </body>
 </html>

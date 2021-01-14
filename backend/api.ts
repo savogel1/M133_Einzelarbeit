@@ -32,6 +32,12 @@ router.post(`/addToCart/:id`, async (ctx) => {
     ctx.response.status = 200;
 });
 
+router.post(`/cart/removeAll`, async (ctx) => {    
+    await ctx.state.session.set("cart", {products: []});
+    
+    ctx.response.status = 200;
+});
+
 router.get(`/cart`, async (ctx) => {
     ctx.response.body = await getCart(ctx);
     ctx.response.status = 200;
