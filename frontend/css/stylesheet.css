@@ -32,8 +32,18 @@ footer {
     text-align: center;
 }
 
+ #shop-overview {
+    display: flex;
+    padding-left: 15%;
+    padding-right: 15%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    min-height: 55vh;
+ }
+
 .product-img {
-    height: 150px;
+    height: 100px;
 }
 
 #product-detail-img {
@@ -54,16 +64,23 @@ footer {
 }
 
 .cart-align {
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .add-to-cart-btn {
     height: 50px;
 }
 
-#shop-overview {
-    display: flex;
-    margin: auto;
-    width: 50%;
+.card-content-right {
+    float: right;
+    vertical-align: center;
+}
+
+.card-content-left {
+    float: left;
+    text-align: left;
+}
+
+.card-content {
     padding: 10px;
 }

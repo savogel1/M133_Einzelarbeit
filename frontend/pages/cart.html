@@ -37,11 +37,18 @@
         </nav>
     </header>
 
+    <main>
+        <ul id="cart-list" class="list-group list-group-flush"></ul>
+    </main>
+
     <footer class="card-footer">
         <p>Web-Shop von Sacha Vogel</p>
     </footer>
 
     <script type="module">
+        import { loadCart } from "../build.app.js";
+
+        loadCart();
     </script>
 </body>
 </html>

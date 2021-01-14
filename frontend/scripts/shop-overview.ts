@@ -1,5 +1,9 @@
+import { Product } from "../../backend/classes/product.ts";
+
+const localhostUrl = "http:/localhost:8000/";
+
 export async function loadProducts() {
-    let products = await getProducts();
+    let products: Product[] = await getProducts();
 
     products.forEach(product => {
         let overview = document.getElementById("shop-overview");
@@ -9,13 +13,13 @@ export async function loadProducts() {
         let title = document.createElement("h5");
         let price = document.createElement("p");
     
-        img.src = "./assets/" + product.imgUrl;
-        img.className = "product-img";
-        title.innerText = product.name;
-        price.innerText = product.price + ".-";
-        productDiv.className = "card";
         link.href = `./pages/product-detail.html?productId=${product.id}`;
         link.setAttribute("style", "color: black; text-decoration: none;");
+        productDiv.className = "card";
+        img.className = "product-img";
+        img.src = "./assets/" + product.imageName;
+        title.innerText = product.productName;
+        price.innerText = product.normalPrice;
     
         link.appendChild(productDiv);
         productDiv.appendChild(title);
@@ -26,7 +30,7 @@ export async function loadProducts() {
 }
 
 async function getProducts() {
-    let response = await fetch('http://localhost:8000/overview', {
+    let response = await fetch('overview', {
         method: 'GET',
     });
     return await response.json();

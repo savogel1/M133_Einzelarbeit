@@ -1,21 +1,23 @@
 async function getProducts() {
-    let response = await fetch('http://localhost:8000/overview', {
+    let response = await fetch('overview', {
         method: 'GET'
     });
     return await response.json();
 }
-async function loadProductDetail2() {
+const localhostUrl = "http://localhost:8000/";
+const localhostUrl1 = "http://localhost:8000/";
+async function addToCart() {
     const productId = new URLSearchParams(window.location.search).get("productId");
-    let response = await fetch(`http://localhost:8000/product-detail/${productId}`, {
-        mode: `no-cors`
+    await fetch(localhostUrl1 + `addToCart/${productId}`, {
+        method: 'POST'
     });
-    let product = await response.json();
-    document.getElementById("product-detail-img").src = `../assets/${product.imgUrl}`;
-    document.getElementById("product-title").innerText = product.name;
-    document.getElementById("product-price").innerText = product.price;
 }
-const loadProductDetail1 = loadProductDetail2;
-export { loadProductDetail1 as loadProductDetail };
+async function getCart() {
+    let response = await fetch(localhostUrl1 + 'cart', {
+        method: 'GET'
+    });
+    return await response.json();
+}
 async function loadProducts2() {
     let products = await getProducts();
     products.forEach((product)=>{
@@ -25,13 +27,13 @@ async function loadProducts2() {
         let img = document.createElement("img");
         let title = document.createElement("h5");
         let price = document.createElement("p");
-        img.src = "./assets/" + product.imgUrl;
-        img.className = "product-img";
-        title.innerText = product.name;
-        price.innerText = product.price + ".-";
-        productDiv.className = "card";
         link.href = `./pages/product-detail.html?productId=${product.id}`;
         link.setAttribute("style", "color: black; text-decoration: none;");
+        productDiv.className = "card";
+        img.className = "product-img";
+        img.src = "./assets/" + product.imageName;
+        title.innerText = product.productName;
+        price.innerText = product.normalPrice;
         link.appendChild(productDiv);
         productDiv.appendChild(title);
         productDiv.appendChild(img);
@@ -41,3 +43,28 @@ async function loadProducts2() {
 }
 const loadProducts1 = loadProducts2;
 export { loadProducts1 as loadProducts };
+async function loadProductDetail2() {
+    const productId = new URLSearchParams(window.location.search).get("productId");
+    let response = await fetch(localhostUrl + `product-detail/${productId}`, {
+        mode: `no-cors`
+    });
+    let product = await response.json();
+    document.getElementById("product-detail-img").src = `../assets/${product.imageName}`;
+    document.getElementById("product-title").innerText = product.productName;
+    document.getElementById("product-price").innerText = "Das Produkt kostet: " + product.normalPrice + " CHF";
+    document.getElementById("btn-add-to-cart").addEventListener('click', addToCart);
+}
+const loadProductDetail1 = loadProductDetail2;
+export { loadProductDetail1 as loadProductDetail };
+async function loadCart2() {
+    const cart = await getCart();
+    let productsInCart = document.getElementById("cart-list");
+    cart.products.forEach((product)=>{
+        let li = document.createElement("li");
+        li.className = "list-group-item";
+        li.innerText = product.productName;
+        productsInCart.appendChild(li);
+    });
+}
+const loadCart1 = loadCart2;
+export { loadCart1 as loadCart };
