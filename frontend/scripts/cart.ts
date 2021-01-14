@@ -7,10 +7,28 @@ export async function loadCart() {
     let productsInCart = document.getElementById("cart-list");
     
     cart.products.forEach(product => {
-        let li = document.createElement("li");
-        li.className = "list-group-item";
-        li.innerText = product.productName;
-        productsInCart.appendChild(li);
+        let link = document.createElement("a");
+        let img = document.createElement("img");
+        let title = document.createElement("h5");
+        let amount = document.createElement("p");        
+        let price = document.createElement("p");
+
+
+        link.href = `./product-detail.html?productId=${product.id}`;        
+        link.setAttribute("style", "color: black; text-decoration: none;");
+        link.className = "d-flex w-100 justify-content-between cart-item";
+        img.className = "cart-img";
+        img.src = "../assets/" + product.imageName;
+        title.innerText = product.productName;
+        amount.innerText = "1";
+        price.innerText = `Pro Stk: ${product.normalPrice} CHF`;
+    
+        link.appendChild(img);
+        link.appendChild(title)
+        link.appendChild(amount);
+        link.appendChild(price);
+        
+        productsInCart.appendChild(link);
     });
 }
 

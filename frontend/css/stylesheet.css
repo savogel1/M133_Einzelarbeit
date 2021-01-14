@@ -46,6 +46,18 @@ footer {
     height: 100px;
 }
 
+.cart-img {
+    height: 80px;
+}
+
+.list-group {
+    width: 800px;
+}
+
+.cart-item {
+    margin: 20px;
+}
+
 #product-detail-img {
     height: 300px;
 }
