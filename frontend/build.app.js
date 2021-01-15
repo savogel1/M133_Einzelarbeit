@@ -26,7 +26,9 @@ async function loadProducts2() {
         let productDiv = document.createElement("div");
         let img = document.createElement("img");
         let title = document.createElement("h5");
+        let del = document.createElement("del");
         let price = document.createElement("p");
+        let specialOffer = document.createElement("p");
         link.href = `./pages/product-detail.html?productId=${product.id}`;
         link.setAttribute("style", "color: black; text-decoration: none;");
         productDiv.className = "card";
@@ -34,10 +36,13 @@ async function loadProducts2() {
         img.src = "./assets/" + product.imageName;
         title.innerText = product.productName;
         price.innerText = product.normalPrice;
+        specialOffer.innerText = product.specialOffer;
         link.appendChild(productDiv);
         productDiv.appendChild(title);
         productDiv.appendChild(img);
-        productDiv.appendChild(price);
+        del.appendChild(price);
+        productDiv.appendChild(del);
+        productDiv.appendChild(specialOffer);
         overview.appendChild(link);
     });
 }
@@ -45,7 +50,7 @@ const loadProducts1 = loadProducts2;
 export { loadProducts1 as loadProducts };
 async function loadProductDetail2() {
     const productId = new URLSearchParams(window.location.search).get("productId");
-    let response = await fetch(localhostUrl + `product-detail/${productId}`, {
+    let response = await fetch(localhostUrl + `product/${productId}`, {
         mode: `no-cors`
     });
     let product = await response.json();
@@ -57,13 +62,15 @@ async function loadProductDetail2() {
 const loadProductDetail1 = loadProductDetail2;
 export { loadProductDetail1 as loadProductDetail };
 async function loadCart2() {
-    const cart = await getCart();
+    let cart = await getCart();
     let productsInCart = document.getElementById("cart-list");
-    cart.products.forEach((product)=>{
+    cart.forEach((cartItem)=>{
+        let product = cartItem[0];
+        let amount = cartItem[1];
         let link = document.createElement("a");
         let img = document.createElement("img");
         let title = document.createElement("h5");
-        let amount = document.createElement("p");
+        let amountP = document.createElement("p");
         let price = document.createElement("p");
         link.href = `./product-detail.html?productId=${product.id}`;
         link.setAttribute("style", "color: black; text-decoration: none;");
@@ -71,11 +78,11 @@ async function loadCart2() {
         img.className = "cart-img";
         img.src = "../assets/" + product.imageName;
         title.innerText = product.productName;
-        amount.innerText = "1";
+        amountP.innerText = amount;
         price.innerText = `Pro Stk: ${product.normalPrice} CHF`;
         link.appendChild(img);
         link.appendChild(title);
-        link.appendChild(amount);
+        link.appendChild(amountP);
         link.appendChild(price);
         productsInCart.appendChild(link);
     });

@@ -11,7 +11,9 @@ export async function loadProducts() {
         let productDiv = document.createElement("div");
         let img = document.createElement("img");
         let title = document.createElement("h5");
+        let del = document.createElement("del");
         let price = document.createElement("p");
+        let specialOffer = document.createElement("p");
     
         link.href = `./pages/product-detail.html?productId=${product.id}`;
         link.setAttribute("style", "color: black; text-decoration: none;");
@@ -20,11 +22,14 @@ export async function loadProducts() {
         img.src = "./assets/" + product.imageName;
         title.innerText = product.productName;
         price.innerText = product.normalPrice;
+        specialOffer.innerText = product.specialOffer;
     
         link.appendChild(productDiv);
         productDiv.appendChild(title);
         productDiv.appendChild(img);
-        productDiv.appendChild(price);
+        del.appendChild(price);
+        productDiv.appendChild(del);
+        productDiv.appendChild(specialOffer);
         overview.appendChild(link);
     });
 }

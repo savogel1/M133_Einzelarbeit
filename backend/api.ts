@@ -17,35 +17,51 @@ router.get('/overview', async (ctx) => {
     ctx.response.status = 200;
 });
 
-router.get(`/product-detail/:id`, async (ctx) => {
+router.get(`/product/:id`, async (ctx) => {
     ctx.response.body = getProduct(ctx.params.id!);
     ctx.response.status = 200;
 });
 
 router.post(`/addToCart/:id`, async (ctx) => {    
-    const cart = await getCart(ctx);
+    let cart = await getCart(ctx);
     let product = getProduct(ctx.params.id!);
-    cart.products.push(product);
+
+    const amount = cart.get(product.id);
+    if (amount == undefined) {
+        cart.set(product.id, 1);
+    } else {
+        cart.set(product.id, amount + 1);
+    }
+    
     await ctx.state.session.set("cart", cart);
 
     ctx.response.body = cart;
     ctx.response.status = 200;
 });
 
-router.post(`/cart/removeAll`, async (ctx) => {    
-    await ctx.state.session.set("cart", {products: []});
+router.post(`/cart/removeAll`, async (ctx) => {
+    let cart = new Map<string, number>();
+    await ctx.state.session.set("cart", {cart});
     
     ctx.response.status = 200;
 });
 
 router.get(`/cart`, async (ctx) => {
-    ctx.response.body = await getCart(ctx);
+    const cart = await getCart(ctx);
+    let newCart: [Product, number][] = [];
+
+    cart.forEach((amount: number, id: string) => {
+        newCart.push([getProduct(id), amount]);
+    });
+
+    ctx.response.body = newCart;
     ctx.response.status = 200;
 });
 
-async function getCart(ctx: any) {
+async function getCart(ctx: any): Promise<Map<string, number>> {
     if (await ctx.state.session.get("cart") == undefined) {
-        await ctx.state.session.set("cart", {products: []});
+        let cart = new Map<string, number>();
+        await ctx.state.session.set("cart", cart);
     }
     return await ctx.state.session.get("cart");
 }

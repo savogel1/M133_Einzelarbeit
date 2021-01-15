@@ -1,16 +1,20 @@
+import { Cart } from '../../backend/classes/cart.ts';
+import { Product } from '../../backend/classes/product.ts';
 
 const localhostUrl = "http://localhost:8000/";
 
 export async function loadCart() {
-    const cart = await getCart();
+    let cart: [Product, number][] = await getCart();
 
     let productsInCart = document.getElementById("cart-list");
-    
-    cart.products.forEach(product => {
+    cart.forEach(cartItem => {
+        let product = cartItem[0];
+        let amount = cartItem[1];
+
         let link = document.createElement("a");
         let img = document.createElement("img");
         let title = document.createElement("h5");
-        let amount = document.createElement("p");        
+        let amountP = document.createElement("p");        
         let price = document.createElement("p");
 
 
@@ -20,12 +24,12 @@ export async function loadCart() {
         img.className = "cart-img";
         img.src = "../assets/" + product.imageName;
         title.innerText = product.productName;
-        amount.innerText = "1";
+        amountP.innerText = amount;
         price.innerText = `Pro Stk: ${product.normalPrice} CHF`;
     
         link.appendChild(img);
         link.appendChild(title)
-        link.appendChild(amount);
+        link.appendChild(amountP);
         link.appendChild(price);
         
         productsInCart.appendChild(link);
