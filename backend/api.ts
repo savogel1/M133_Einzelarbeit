@@ -22,7 +22,7 @@ router.get(`/product/:id`, async (ctx) => {
     ctx.response.status = 200;
 });
 
-router.post(`/addToCart/:id`, async (ctx) => {    
+router.post(`/cart/addAmount/:id`, async (ctx) => {    
     let cart = await getCart(ctx);
     let product = getProduct(ctx.params.id!);
 
@@ -32,10 +32,27 @@ router.post(`/addToCart/:id`, async (ctx) => {
     } else {
         cart.set(product.id, amount + 1);
     }
+
+    await ctx.state.session.set("cart", cart);
+    ctx.response.status = 200;
+});
+
+router.post(`/cart/removeAmount/:id`, async (ctx) => {    
+    let cart = await getCart(ctx);
+    let product = getProduct(ctx.params.id!);
+
+    const amount = cart.get(product.id);
+    console.log(amount)
+    if (amount == undefined) {
+        let cart = new Map<string, number>();
+        await ctx.state.session.set("cart", {cart});
+    } else if (amount <= 1) {
+        cart.delete(product.id);
+    } else {
+        cart.set(product.id, amount - 1);
+    }
     
     await ctx.state.session.set("cart", cart);
-
-    ctx.response.body = cart;
     ctx.response.status = 200;
 });
 

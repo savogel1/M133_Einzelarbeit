@@ -47,7 +47,7 @@ footer {
 }
 
 .cart-img {
-    height: 80px;
+    width: 80px;
 }
 
 .list-group {
@@ -96,4 +96,9 @@ footer {
 
 .card-content {
     padding: 10px;
+}
+
+.amount-btn {
+    border: 50%;
+    padding: 0px;
 }
