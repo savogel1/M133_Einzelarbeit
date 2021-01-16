@@ -44,11 +44,11 @@ export async function loadCart() {
             await updateCart();
             window.location.reload();
           };
-        
+          
         tdProductImg.appendChild(img);
-        tdAmount.appendChild(removeAmountBtn);
-        tdAmount.appendChild(amountElement);
         tdAmount.appendChild(addAmountBtn);
+        tdAmount.appendChild(amountElement);
+        tdAmount.appendChild(removeAmountBtn);
         tr.appendChild(tdProductImg);
         tr.appendChild(tdProductTitle);
         tr.appendChild(tdAmount);

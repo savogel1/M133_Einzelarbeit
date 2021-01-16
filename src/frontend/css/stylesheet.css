@@ -23,13 +23,20 @@ header {
     background-color: #f8f9fa;
 }
 
+main {
+    padding-bottom: 100px;
+}
+
 footer {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: rgb(190, 190, 190);
+    height: 80px;
+    padding: 30px;
     text-align: center;
+    background-color: lightgrey;
+    z-index: 1;
 }
 
  #shop-overview {
@@ -42,8 +49,12 @@ footer {
     min-height: 55vh;
  }
 
+.products {
+    padding-top: 200px;
+}
+
 .product-img {
-    height: 120px;
+    height: 110px;
 }
 
 .cart-img {
@@ -52,6 +63,10 @@ footer {
 
 .list-group {
     width: 800px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .cart-item {
