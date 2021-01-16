@@ -87,5 +87,5 @@ async function createAmountTotal() {
     let response = await fetch(localhostUrl + 'cart/total', {
         method: 'GET'
     });
-    document.getElementById("totalAllProducts").innerHTML = "<b>" + await response.json() + "</b>";
+    document.getElementById("totalAllProducts").innerHTML = "<b>" + "Gesamt Total: " + await response.json() + "</b>";
 }
