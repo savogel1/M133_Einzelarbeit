@@ -5,7 +5,7 @@ export const fileserver = async (context: Context<Record<string, any>>) => {
         context,
         context.request.url.pathname,
         { 
-            root: `${Deno.cwd()}/frontend`,
-            index: "index.html"
+            root: `${Deno.cwd()}/src/frontend`,
+            index: "page1.html"
     });
 };

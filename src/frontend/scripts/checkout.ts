@@ -23,6 +23,6 @@ export async function checkoutPurchase(event: any) {
         alert(message);
     } else {
         alert("Einkauf wurde erfolgreich abgeschlossen!");
-        window.location.href = "http://localhost:8000/";
+        window.location.href = "http://localhost:8000/index.html";
     }
 }

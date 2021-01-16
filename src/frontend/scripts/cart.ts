@@ -1,4 +1,3 @@
-import { Cart } from '../../backend/classes/cart.ts';
 import { Product } from '../../backend/classes/product.ts';
 
 const localhostUrl = "http://localhost:8000/";
