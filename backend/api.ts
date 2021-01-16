@@ -55,11 +55,24 @@ router.post(`/cart/removeAmount/:id`, async (ctx) => {
     ctx.response.status = 200;
 });
 
-router.post(`/cart/removeAll`, async (ctx) => {
-    let cart = await ctx.state.session.get("cart");
-    cart = new Map<string, number>();
-    await ctx.state.session.set("cart", cart);
+router.post(`/cart/checkout`, async (ctx) => {
+    if (!ctx.request.hasBody) {
+        ctx.response.body = JSON.stringify("Bitte Benutzerdaten eingeben!");
+        return;
+    }
 
+    const userData = await ctx.request.body();
+    const user: { prename: string, lastname: string, email: string } = JSON.parse(await userData.value);
+
+    let message = validate(user);
+    
+    if (message == "") { 
+        let cart = await ctx.state.session.get("cart");
+        cart = new Map<string, number>();
+        await ctx.state.session.set("cart", cart);
+    }
+
+    ctx.response.body = JSON.stringify(message);
     ctx.response.status = 200;
 });
 
@@ -75,7 +88,6 @@ router.get(`/cart/total`, async (ctx) => {
     ctx.response.body = Math.round(totalPrice * 100) / 100;
     ctx.response.status = 200;
 });
-
 
 router.get(`/cart`, async (ctx) => {
     const cart = await getCart(ctx);
@@ -99,6 +111,21 @@ async function getCart(ctx: any): Promise<Map<string, number>> {
 
 function getProduct(id: any) {
     return products.find((product) => product.id == id)!;
+}
+
+function validate(user: {prename: string, lastname: string, email: string}) {
+    if (user.prename == undefined || user.prename.trim().length == 0) {
+        return "Bitte Vornamen eingeben!";
+    }
+
+    if (user.lastname == undefined || user.lastname.trim().length == 0) {
+        return "Bitte Nachnamen eingeben!";
+    }
+
+    if (user.email == undefined || user.email.trim().length == 0) {
+        return "Bitte E-Mail eingeben!";
+    }
+    return "";
 }
 
 export const api = router.routes();
