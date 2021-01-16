@@ -76,7 +76,7 @@ router
 
         cart.forEach((amount: number, id: string) => {
             let product = getProduct(id);
-            totalPrice += product.specialOffer * amount;
+            totalPrice += (product.specialOffer ?? product.normalPrice) * amount;
         });
 
         ctx.response.body = Math.round(totalPrice * 100) / 100;

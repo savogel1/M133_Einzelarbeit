@@ -15,6 +15,7 @@ export async function loadCart() {
         let tdProductTitle = document.createElement("th");
         let tdAmount = document.createElement("td");
         let tdPrice = document.createElement("td");
+        let totalProduct = document.createElement("td");
         let img = document.createElement("img");
         let amountElement = document.createElement("p");
         let addAmountBtn = document.createElement("button");
@@ -25,7 +26,8 @@ export async function loadCart() {
         img.src = "../assets/" + product.imageName;
         tdProductTitle.textContent = product.productName;
         amountElement.innerText = amount;
-        tdPrice.textContent = product.specialOffer;
+        totalProduct.textContent = Math.round((product.specialOffer ?? product.normalPrice) * amount * 100) / 100;
+        tdPrice.textContent = product.specialOffer ?? product.normalPrice;
         addAmountBtn.innerText = "+";
         addAmountBtn.className = "btn btn-outline-dark btn-sm amount-btn";
         addAmountBtn.onclick = async () => {
@@ -44,6 +46,7 @@ export async function loadCart() {
             await updateCart();
             window.location.reload();
           };
+        createAmountTotal();
           
         tdProductImg.appendChild(img);
         tdAmount.appendChild(addAmountBtn);
@@ -53,6 +56,7 @@ export async function loadCart() {
         tr.appendChild(tdProductTitle);
         tr.appendChild(tdAmount);
         tr.appendChild(tdPrice); 
+        tr.appendChild(totalProduct);
         table.appendChild(tr);
     });
 }
@@ -77,4 +81,11 @@ export async function updateCart() {
         method: 'GET'
     });
     document.getElementById("total").innerHTML = await response.json();
+}
+
+async function createAmountTotal() {
+    let response = await fetch(localhostUrl + 'cart/total', {
+        method: 'GET'
+    });
+    document.getElementById("totalAllProducts").innerHTML = "<b>" + await response.json() + "</b>";
 }

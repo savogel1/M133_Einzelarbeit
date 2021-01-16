@@ -35,8 +35,13 @@ footer {
     height: 80px;
     padding: 30px;
     text-align: center;
-    background-color: lightgrey;
+    background-color: #343a40;
+    color: white;
     z-index: 1;
+}
+
+h1 {
+    color: #343a40;
 }
 
  #shop-overview {
@@ -61,12 +66,9 @@ footer {
     width: 80px;
 }
 
-.list-group {
-    width: 800px;
+.checkout-total {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
 }
 
 .cart-item {
