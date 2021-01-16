@@ -12,7 +12,7 @@ export async function loadProductDetail() {
 
     document.getElementById("product-detail-img").src = `../assets/${product.imageName}`;
     document.getElementById("product-title").innerText = product.productName;
-    document.getElementById("product-price").innerText = "Das Produkt kostet: " + product.normalPrice + " CHF";
+    document.getElementById("product-price").innerText = "Das Produkt kostet: " + product.specialOffer + " CHF";
     document.getElementById("btn-add-to-cart").addEventListener('click', addToCart);
 }
 

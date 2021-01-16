@@ -6,18 +6,20 @@ async function getProducts() {
 }
 const localhostUrl = "http://localhost:8000/";
 const localhostUrl1 = "http://localhost:8000/";
-async function addToCart() {
-    const productId = new URLSearchParams(window.location.search).get("productId");
-    await fetch(localhostUrl1 + `cart/addAmount/${productId}`, {
-        method: 'POST'
-    });
-}
 async function getCart() {
     let response = await fetch(localhostUrl1 + 'cart', {
         method: 'GET'
     });
     return await response.json();
 }
+async function updateCart2() {
+    let response = await fetch(localhostUrl1 + 'cart/total', {
+        method: 'GET'
+    });
+    document.getElementById("total").innerHTML = await response.json();
+}
+const updateCart1 = updateCart2;
+export { updateCart1 as updateCart };
 async function loadProducts2() {
     let products = await getProducts();
     products.forEach((product)=>{
@@ -48,19 +50,6 @@ async function loadProducts2() {
 }
 const loadProducts1 = loadProducts2;
 export { loadProducts1 as loadProducts };
-async function loadProductDetail2() {
-    const productId = new URLSearchParams(window.location.search).get("productId");
-    let response = await fetch(localhostUrl + `product/${productId}`, {
-        mode: `no-cors`
-    });
-    let product = await response.json();
-    document.getElementById("product-detail-img").src = `../assets/${product.imageName}`;
-    document.getElementById("product-title").innerText = product.productName;
-    document.getElementById("product-price").innerText = "Das Produkt kostet: " + product.normalPrice + " CHF";
-    document.getElementById("btn-add-to-cart").addEventListener('click', addToCart);
-}
-const loadProductDetail1 = loadProductDetail2;
-export { loadProductDetail1 as loadProductDetail };
 async function loadCart2() {
     let cart = await getCart();
     let table = document.getElementById("cart-table");
@@ -88,6 +77,7 @@ async function loadCart2() {
             await fetch(localhostUrl1 + `cart/addAmount/${product.id}`, {
                 method: 'POST'
             });
+            await updateCart2();
             window.location.reload();
         };
         removeAmountBtn.innerText = "-";
@@ -96,6 +86,7 @@ async function loadCart2() {
             await fetch(localhostUrl1 + `cart/removeAmount/${product.id}`, {
                 method: 'POST'
             });
+            await updateCart2();
             window.location.reload();
         };
         tdProductImg.appendChild(img);
@@ -110,4 +101,24 @@ async function loadCart2() {
     });
 }
 const loadCart1 = loadCart2;
+async function addToCart() {
+    const productId = new URLSearchParams(window.location.search).get("productId");
+    await fetch(localhostUrl1 + `cart/addAmount/${productId}`, {
+        method: 'POST'
+    });
+    await updateCart2();
+}
 export { loadCart1 as loadCart };
+async function loadProductDetail2() {
+    const productId = new URLSearchParams(window.location.search).get("productId");
+    let response = await fetch(localhostUrl + `product/${productId}`, {
+        mode: `no-cors`
+    });
+    let product = await response.json();
+    document.getElementById("product-detail-img").src = `../assets/${product.imageName}`;
+    document.getElementById("product-title").innerText = product.productName;
+    document.getElementById("product-price").innerText = "Das Produkt kostet: " + product.specialOffer + " CHF";
+    document.getElementById("btn-add-to-cart").addEventListener('click', addToCart);
+}
+const loadProductDetail1 = loadProductDetail2;
+export { loadProductDetail1 as loadProductDetail };

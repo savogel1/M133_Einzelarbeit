@@ -42,7 +42,6 @@ router.post(`/cart/removeAmount/:id`, async (ctx) => {
     let product = getProduct(ctx.params.id!);
 
     const amount = cart.get(product.id);
-    console.log(amount)
     if (amount == undefined) {
         let cart = new Map<string, number>();
         await ctx.state.session.set("cart", {cart});
@@ -57,11 +56,26 @@ router.post(`/cart/removeAmount/:id`, async (ctx) => {
 });
 
 router.post(`/cart/removeAll`, async (ctx) => {
-    let cart = new Map<string, number>();
-    await ctx.state.session.set("cart", {cart});
-    
+    let cart = await ctx.state.session.get("cart");
+    cart = new Map<string, number>();
+    await ctx.state.session.set("cart", cart);
+
     ctx.response.status = 200;
 });
+
+router.get(`/cart/total`, async (ctx) => {
+    const cart = await getCart(ctx);
+    var totalPrice = 0;
+
+    cart.forEach((amount: number, id: string) => {
+        let product = getProduct(id);
+        totalPrice += product.specialOffer * amount;
+    });
+
+    ctx.response.body = Math.round(totalPrice * 100) / 100;
+    ctx.response.status = 200;
+});
+
 
 router.get(`/cart`, async (ctx) => {
     const cart = await getCart(ctx);

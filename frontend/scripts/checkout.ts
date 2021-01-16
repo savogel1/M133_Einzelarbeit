@@ -1,3 +1,5 @@
+import { updateCart } from "./cart.ts";
+
 const localhostUrl = "http://localhost:8000/";
 
 document.getElementById("checkout-form").addEventListener("submit", checkoutPurchase);

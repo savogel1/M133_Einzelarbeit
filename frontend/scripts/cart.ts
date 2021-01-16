@@ -33,6 +33,7 @@ export async function loadCart() {
             await fetch(localhostUrl + `cart/addAmount/${product.id}`, {
                 method: 'POST',
             });
+            await updateCart();
             window.location.reload();
           };
         removeAmountBtn.innerText = "-";
@@ -41,6 +42,7 @@ export async function loadCart() {
             await fetch(localhostUrl + `cart/removeAmount/${product.id}`, {
                 method: 'POST',
             });
+            await updateCart();
             window.location.reload();
           };
         
@@ -61,11 +63,19 @@ export async function addToCart() {
     await fetch(localhostUrl + `cart/addAmount/${productId}`, {
         method: 'POST'
     });
+    await updateCart();
 } 
 
 async function getCart() {
     let response = await fetch(localhostUrl + 'cart', {
-        method: 'GET',
+        method: 'GET'
     });
     return await response.json();
+}
+
+export async function updateCart() {
+    let response = await fetch(localhostUrl + 'cart/total', {
+        method: 'GET'
+    });
+    document.getElementById("total").innerHTML = await response.json();
 }
